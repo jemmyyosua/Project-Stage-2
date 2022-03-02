@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Krub&display=swap');
+
+*{
+    font-family: 'Krub', sans-serif;
+}
+
+.img1{
+    background-color: aqua;
+    position: absolute;
+    left: 30.4vh;
+    height: 100vh;
+    z-index: -1;
+}
+
+.icon{
+  width: 50%;
+  margin-bottom: -30px;
+}
+
+.btn-sign{
+    border-radius: 7px;
+    font-weight: 600;
+    font-size: 14pt;
+}
+
+p{
+    font-size: 14pt;
+}
