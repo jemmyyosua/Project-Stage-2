@@ -4,7 +4,9 @@ import './css/style.css';
 import icon from './assets/icon.png';
 import vector from './assets/vector.png';
 import {Row, Col, Button } from 'react-bootstrap';
-import Modals from './components/login.js'
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
+
 
 function App(){
     return  (
@@ -18,8 +20,8 @@ function App(){
                        <br /> provider in Indonesia</p>
                     <Col lg="8">
                     <Row className="mt-5">
-                        <Col></Col>
-                        <Col><Modals/></Col>
+                        <Col><SignUp/></Col>
+                        <Col><SignIn/></Col>
                     </Row>   
                     </Col> 
             </div>

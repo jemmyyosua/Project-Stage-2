@@ -1,7 +1,7 @@
 import {Button, Form, CloseButton ,Modal, ModalHeader, Row, Col } from 'react-bootstrap';
 import {React, useState} from 'react';
 
-function Modals() {
+function SignUp() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -10,7 +10,7 @@ function Modals() {
   return (
     <>
       <Button className="px-5 btn-sign" variant="danger" onClick={handleShow}>
-        Sign In
+        Sign Up
       </Button>
 
       <Modal
@@ -27,22 +27,26 @@ function Modals() {
     
           <Row className="justify-content-center">
             <Col lg="10">
-              <h1>Sign In</h1>
+              <h1>Sign Up</h1>
               <Form>
                 <Form.Group className="mt-4 mb-4" controlId="formBasicEmail">
-                  <Form.Control className="py-2" type="email" placeholder="Email" />
+                  <Form.Control className="py-2" type="email" placeholder="Email" required/>
                   </Form.Group>
 
                   <Form.Group className="mb-4" controlId="formBasicPassword">
-                  <Form.Control className="py-2" type="password" placeholder="Password" />
+                  <Form.Control className="py-2" type="password" placeholder="Password" required/>
+                  </Form.Group>
+
+                  <Form.Group className="mt-4 mb-4" controlId="formBasicEmail">
+                  <Form.Control className="py-2" type="text" placeholder="Full Name" required/>
                   </Form.Group>
                   <div className="d-grid mt-4 mb-3">
                     <Button className="mt-2" variant="danger" size="lg">
-                      Sign In
+                      Sign Up
                     </Button>
                   </div>
                 <center>
-                <p className="mb-4">Don't have an account ? Klik Here</p>
+                <p className="mb-4">Already have an account ? Klik Here</p>
                 </center>
               </Form>
             </Col>
@@ -53,4 +57,4 @@ function Modals() {
   );
 }
 
- export default Modals;
+ export default SignUp;
