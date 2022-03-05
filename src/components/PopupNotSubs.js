@@ -1,0 +1,24 @@
+import {useState} from 'react'
+import {Col, Alert} from 'react-bootstrap'
+
+
+
+function Popup() {
+  const [show, setShow] = useState(true);
+
+  if (show) {
+    return (
+      <Col lg="11">
+      <Alert className="" variant="danger" onClose={() => setShow(false)} dismissible>
+        <h6 className=" mt-2">
+        Please make a payment to read the latest book
+        </h6>
+      </Alert>
+      </Col>
+    )
+  }
+  return <> </>
+}
+
+export default Popup
+

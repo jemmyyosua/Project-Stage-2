@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import './css/style.css';
 import Home from './userPages/home';
 import LandingPage from './userPages/landingPage';
+import Subscribe from './userPages/subscribe';
+import PopupNotSubs from '../src/components/PopupNotSubs'
 
 
 function App(){
@@ -12,6 +14,8 @@ function App(){
             <Routes>
                 <Route exact path="/" element={<LandingPage />} />
                 <Route exact path="/home" element={<Home />} />
+                <Route exact path="/subscribe" element={<Subscribe />}/>
+                <Route exact path="/popup" element={<PopupNotSubs />}/>
             </Routes>
         </Router>
     )

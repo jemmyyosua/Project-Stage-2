@@ -1,8 +1,8 @@
 import icon from '../assets/icon.png'
 import vector from '../assets/vector.png'
 import {Row, Col, Button } from 'react-bootstrap'
-import SignIn from '../components/SignIn'
-import SignUp from '../components/SignUp'
+import SignIn from '../PopupSubs.js/SignIn'
+import SignUp from '../PopupSubs.js/SignUp'
 
 function LandingPage(){
     return (
