@@ -1,11 +1,20 @@
-import {Button, Form, CloseButton ,Modal, ModalHeader, Row, Col } from 'react-bootstrap';
-import {React, useState} from 'react';
+import {Button, Form, CloseButton ,Modal, ModalHeader, Row, Col } from 'react-bootstrap'
+import {React, useState} from 'react'
+import { useNavigate } from "react-router-dom";
+
 
 function SignIn() {
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const navigate = useNavigate();
+
+  const handleNavigateToHome = () => {
+    navigate("/home");
+  };
 
   return (
     <>
@@ -37,7 +46,7 @@ function SignIn() {
                   <Form.Control className="py-2" type="password" placeholder="Password" required/>
                   </Form.Group>
                   <div className="d-grid mt-4 mb-3">
-                    <Button className="mt-2" variant="danger" size="lg">
+                    <Button onClick={handleNavigateToHome} className="mt-2" variant="danger" size="lg">
                       Sign In
                     </Button>
                   </div>

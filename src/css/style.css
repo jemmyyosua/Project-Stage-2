@@ -2,6 +2,7 @@
 
 *{
     font-family: 'Krub', sans-serif;
+    font-size: 13pt;
 }
 
 .img1{
@@ -13,9 +14,21 @@
 }
 
 .icon{
-  width: 50%;
+  width: 60%;
   margin-bottom: -30px;
 }
+
+.icon2{
+    transform: skewY(165deg);
+    width: 50%;
+  }
+
+.iconProfile{
+    width:30%;
+    border-radius:100px;
+  }
+  
+  
 
 .btn-sign{
     border-radius: 7px;
@@ -24,10 +37,26 @@
 }
 
 
-h1{
-    font-weight: bolder;
+.p1{
+    font-size: 11pt;
+    color: #9c9c9c;
 }
 
-p{
-    font-size: 14pt;
+.nav{
+    
+    height: 100vh;
+}
+
+hr{
+    width: 70%;
+    text-align: center;
+}
+
+.col{
+    background-color: blanchedalmond;
+}
+
+.pointer{
+    background-color: blanchedalmond;
+    cursor: pointer;
 }
