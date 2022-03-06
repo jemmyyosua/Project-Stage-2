@@ -7,6 +7,7 @@ import LandingPage from './components/landingPage'
 import Subscribe from './userPages/subscribe';
 import Profile from './userPages/profile';
 import DetailBook from './userPages/detailBook';
+import Transaction from './adminPages/transaction';
 
 function App(){
     return  (
@@ -17,6 +18,7 @@ function App(){
                 <Route exact path="/subscribe" element={<Subscribe />}/>
                 <Route exact path="/profile" element={<Profile />}/>
                 <Route exact path="/detail-book" element={<DetailBook />}/>
+                <Route exact path="/admin-transaction" element={<Transaction />}/>
             </Routes>
         </Router>
     )

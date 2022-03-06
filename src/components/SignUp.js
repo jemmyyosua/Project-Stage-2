@@ -1,11 +1,18 @@
 import {Button, Form, CloseButton ,Modal, ModalHeader, Row, Col } from 'react-bootstrap';
-import {React, useState} from 'react';
+import {React, useState} from 'react'
+import { useNavigate } from "react-router-dom"
 
 function SignUp() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const navigate = useNavigate();
+
+  const handleNavigateToAdmin = () => {
+    navigate("/admin-transaction");
+  };
 
   return (
     <>
@@ -41,8 +48,8 @@ function SignUp() {
                   <Form.Control className="py-2" type="text" placeholder="Full Name" required/>
                   </Form.Group>
                   <div className="d-grid mt-4 mb-3">
-                    <Button className="mt-2" variant="danger" size="lg">
-                      Sign Up
+                  <Button onClick={handleNavigateToAdmin} className="mt-2" variant="danger" size="lg">
+                     Sign Up
                     </Button>
                   </div>
                 <center>
