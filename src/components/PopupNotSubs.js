@@ -1,6 +1,5 @@
 import {useState} from 'react'
 import {Col, Alert} from 'react-bootstrap'
-import { render } from '@testing-library/react';
 
 
 function Popup() {

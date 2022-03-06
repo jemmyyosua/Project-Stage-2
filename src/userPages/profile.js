@@ -19,12 +19,14 @@ function Profile(){
                         <Link to="/home"><Image src={icon} className="icon2 ms-5 pointer"></Image></Link>
                         </div>
                         <div className="mb-4">
-                            <Col lg="6" className="ms-5 mb-4">  
-                                <Link to="/profile">
-                                    <Image roundedCircle src={iconProfile} className="ms-5 iconProfile pointer"></Image>  
-                                </Link>  
-                            </Col>
-                            <h5 className="text-center mt-4">Jemmy Yosua Alie</h5>
+                            <div className="ms-2">
+                                <Col lg="7" className="ms-5 mb-3">  
+                                    <Link to="/profile">
+                                        <Image roundedCircle src={iconProfile} className="ms-5 iconProfile pointer"></Image>  
+                                    </Link>  
+                                </Col>
+                            </div>
+                            <h5 className="text-center">Jemmy Yosua Alie</h5>
                             <p className="p1 text-center mt-3 fw-bolder" style={{color:"red"}}>Not Subscribed Yet</p>
                             <hr className="ms-5" />
                         </div>
@@ -44,8 +46,10 @@ function Profile(){
                         
                         <hr className="ms-5" />
 
-                        <Col lg="5" className="ms-5">
-                            <p className="mt-4 ms-1 pointer"><Icon className="me-1" icon="ic:sharp-logout" width="33" height="33" /> Logout</p>
+                        <Col lg="5" className="ms-5"> 
+                            <Link to="/" className="text-decoration-none">        
+                                <p className="mt-4 ms-1 pointer"><Icon className="me-1" icon="ic:sharp-logout" color="#9c9c9c" width="33" height="33" /> Logout</p>
+                            </Link>
                         </Col>
                     </div>         
                 </Nav>
@@ -108,7 +112,7 @@ function Profile(){
                 <h3 className="fw-bold">My List Book</h3>
                 <div className="d-flex flex-wrap">     
                     <Card border="light" className="me-5 mt-4 text-center pointer" style={{ width: '7.3rem' }}>
-                        <Link to="/home"><Image src={book} width="100%" height="180vh"></Image></Link>   
+                        <Link to="/detail-book"><Image src={book} width="100%" height="180vh"></Image></Link>   
                             <div className="mt-1">
                                 <Icon icon="eva:star-fill" color="yellow" width="20" height="20" />
                                 <Icon icon="eva:star-fill" color="yellow" width="20" height="20" />
