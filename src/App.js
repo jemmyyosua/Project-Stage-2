@@ -5,8 +5,7 @@ import './css/style.css';
 import Home from './userPages/home';
 import LandingPage from './userPages/landingPage';
 import Subscribe from './userPages/subscribe';
-import PopupNotSubs from '../src/components/PopupNotSubs'
-
+import Profile from './userPages/profile';
 
 function App(){
     return  (
@@ -15,7 +14,7 @@ function App(){
                 <Route exact path="/" element={<LandingPage />} />
                 <Route exact path="/home" element={<Home />} />
                 <Route exact path="/subscribe" element={<Subscribe />}/>
-                <Route exact path="/popup" element={<PopupNotSubs />}/>
+                <Route exact path="/profile" element={<Profile />}/>
             </Routes>
         </Router>
     )

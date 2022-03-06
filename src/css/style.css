@@ -24,8 +24,7 @@
   }
 
 .iconProfile{
-    width:30%;
-    border-radius:100px;
+    width:50%;
   }
   
   
@@ -38,7 +37,7 @@
 
 
 .p1{
-    font-size: 11pt;
+    font-size: 10pt;
 }
 
 .nav{
@@ -48,10 +47,6 @@
 hr{
     width: 70%;
     text-align: center;
-}
-
-.col{
-    background-color: blanchedalmond;
 }
 
 .pointer{
@@ -64,7 +59,7 @@ hr{
 }
 
 .active-link{
-   color: #ff1f39;
+   color: #ff3045;
 }
 
 .active-link:hover{

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {Col, Alert} from 'react-bootstrap'
-
+import { render } from '@testing-library/react';
 
 
 function Popup() {
@@ -8,6 +8,7 @@ function Popup() {
 
   if (show) {
     return (
+      <div id="alert">
       <Col lg="11">
       <Alert className="" variant="danger" onClose={() => setShow(false)} dismissible>
         <h6 className=" mt-2">
@@ -15,6 +16,7 @@ function Popup() {
         </h6>
       </Alert>
       </Col>
+      </div>
     )
   }
   return <> </>
