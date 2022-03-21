@@ -1,14 +1,23 @@
+import {React, useState, useEffect} from 'react'
 import icon from '../assets/icon.png'
 import vector from '../assets/vector.png'
 import {Row, Col, Button } from 'react-bootstrap'
-import SignIn from './SignIn'
-import SignUp from './SignUp'
+import SignIn from './modalSignIn'
+import SignUp from './modalSignUp'
 
 function LandingPage(){
+    const [signUp, setSignUp] = useState(false)
+    const handleSignUpClose = () => setSignUp(false)
+    const handleSignUpShow = () => setSignUp(true)
+
+    const [signIn, setSignIn] = useState(false)
+    const handleSignInClose = () => setSignIn(false)
+    const handleSignInShow = () => setSignIn(true)
+
     return (
     <>
-        <img className="img1" src={vector} alt="" />
-        <Col className="ms-5" lg="7">
+       <img className="img1" src={vector} alt="" width="100%" height="100%" />
+        <Col className="ms-4" lg="7">
         <div className=" ms-5">
                 <img className="icon mt-4" src={icon} alt="" />
                 <p>Sign-up now and subscribe to enjoy all the cool 
@@ -16,8 +25,18 @@ function LandingPage(){
                     <br /> provider in Indonesia</p>
                 <Col lg="8">
                     <Row className="mt-5">
-                        <Col><SignUp/></Col>
-                        <Col><SignIn/></Col>
+                        <Col>
+                        <Button className="px-5 btn-sign" variant="danger" onClick={handleSignUpShow}>
+                            Sign Up
+                        </Button>
+                        <SignUp show={signUp} handleClose={handleSignUpClose}/>
+                        </Col>
+                        <Col>
+                        <Button className="px-5 btn-sign" variant="secondary" onClick={handleSignInShow}>
+                            Sign In
+                        </Button>
+                        <SignIn show={signIn} handleClose={handleSignInClose}/>
+                        </Col>
                     </Row>   
                 </Col> 
         </div>

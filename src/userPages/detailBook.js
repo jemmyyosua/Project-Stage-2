@@ -1,6 +1,4 @@
 import {Col, Row, Stack ,Container, Image, Button} from 'react-bootstrap'
-import {useState} from 'react'
-import { Link} from "react-router-dom";
 import Sidebar from '../components/navs';
 import book from '../assets/book-2.png'
 import { Icon } from '@iconify/react'

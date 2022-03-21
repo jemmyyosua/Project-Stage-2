@@ -1,14 +1,30 @@
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import {Nav, Form, Button, Col, Row, Container, Image} from 'react-bootstrap'
 import icon from '../assets/icon.png'
 import iconProfile from '../assets/iconProfile.jpg'
 import wow from '../assets/wow.png'
 import file from '../assets/file.png'
 import { Icon } from '@iconify/react'
+import Popup from "../components/PopupSubs";
 
+import { UserContext } from "../context/userContext"
+import { useContext} from "react"
 
 
 function Subscribe(){
+
+    const [state, dispatch] = useContext(UserContext);
+
+    const navigate = useNavigate()
+
+    const logout = () => {
+        console.log(state);
+        dispatch({
+        type: "LOGOUT",
+        });
+        navigate("/", { replace: true })
+    }
+
     return (
         <>
     <Container fluid>
@@ -48,19 +64,17 @@ function Subscribe(){
                         <hr className="ms-5" />
 
                         <Col lg="5" className="ms-5"> 
-                            <Link to="/" className="text-decoration-none">        
-                                <p className="mt-4 ms-1 pointer"><Icon className="me-1" icon="ic:sharp-logout" color="#9c9c9c" width="33" height="33" /> Logout</p>
-                            </Link>
+                            <p onClick={logout} className="mt-4 ms-1 pointer"><Icon className="me-1" icon="ic:sharp-logout" color="#9c9c9c" width="33" height="33" /> Logout</p>
                         </Col>
                     </div>         
                 </Nav>
         </Col>
 
-        <Col lg="9">
-               <div className="d-flex flex-column align-items-center mt-5 me-5">
+        <Col lg="7">
+               <div className="d-flex flex-column align-items-center mt-5">
                     <h3 className="fw-bold mt-5">Premium</h3>
-                    <p className="">Pay now and access all the latest books from <Image src={wow} className=""></Image></p>
-                    <h6 className="fw-bold"><Image src={wow} className=""></Image> : 0981312323</h6>
+                    <p className="">Pay now and access all the latest books from <Image src={wow}></Image></p>
+                    <h6 className="fw-bold"><Image src={wow}></Image> : 0981312323</h6>
                     <Col lg="4">
                     <Form>
                     ` <Form.Group className="mt-2 mb-4" controlId="formBasicEmail">
@@ -78,9 +92,7 @@ function Subscribe(){
                         </Form.Group>
 
                         <div className="d-grid mt-4 mb-3">
-                            <Button className="mt-2" variant="danger" size="md">
-                                Send
-                            </Button>
+                            <Popup/>
                         </div>
                     </Form>
                     </Col>

@@ -1,24 +1,35 @@
 import {useState} from 'react'
-import {Nav, Col, Row, Container, Image, Button, Alert,  CloseButton} from 'react-bootstrap'
+import {Button,Modal} from 'react-bootstrap'
 
 
 
-function Popup() {
+export default function Popup() {
   const [show, setShow] = useState(false);
 
-  if (show) {
-    return (
-      <Col lg="8">
-      <Alert className="ms-3" variant="success" onClose={() => setShow(false)} dismissible>
-        <p className="p1">
-        dasdas
-        </p>
-      </Alert>
-      </Col>
-    )
-  }
-  return <> </>
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
+  return (
+    <>
+      <Button onClick={handleShow} className="mt-2" variant="danger" size="md">
+        Send
+      </Button>
+    
+     <Modal
+        className="ms-5"
+        show={show}
+        onHide={handleClose}
+        keyboard={false}
+      >
+        <Modal.Body>
+          <p className="text-center" style={{color : "green"}}>
+          I will not close if you click outside me. Don't even try to press
+          escape key.
+          </p>
+        </Modal.Body>
+      </Modal>
+    </>
+  )
 }
 
-export default Popup
+

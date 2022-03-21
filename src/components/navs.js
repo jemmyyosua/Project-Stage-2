@@ -1,12 +1,27 @@
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import {Navbar, Col, Image} from 'react-bootstrap'
 import icon from '../assets/icon.png'
 import iconProfile from '../assets/iconProfile.jpg'
 import { Icon } from '@iconify/react'
+import FullName from "./fullName";
 
+import { UserContext } from "../context/userContext"
+import { useContext} from "react"
 
 
 function Sidebar(){
+    const [state, dispatch] = useContext(UserContext);
+
+    const navigate = useNavigate()
+  
+    const logout = () => {
+      console.log(state);
+      dispatch({
+        type: "LOGOUT",
+      });
+     navigate("/", { replace: true })
+    }
+  
     return (
                 <Navbar defaultActiveKey="/home" className="justify-content-center">
                     <div className="">
@@ -36,16 +51,14 @@ function Sidebar(){
                        
                         <Col lg="5" className="ms-5 mb-5">
                             <Link to="/subscribe" className="text-decoration-none">        
-                                <p className="mb-4 pointer"><Icon className="me-1" icon="uil:bill" width="33" height="33" /> Subscribe</p>
+                                <p className="mb-4 pointer"><Icon className="" icon="uil:bill" width="33" height="33" /> Subscribe</p>
                             </Link>
                         </Col>
                         
                         <hr className="ms-5" />
 
-                        <Col lg="5" className="ms-5"> 
-                            <Link to="/" className="text-decoration-none">        
-                                <p className="mt-4 ms-1 pointer"><Icon className="me-1" icon="ic:sharp-logout" color="#9c9c9c" width="33" height="33" /> Logout</p>
-                            </Link>
+                        <Col lg="5" className="ms-5">         
+                            <p onClick={logout} className="mt-4 ms-1 pointer"><Icon className="me-1" icon="ic:sharp-logout" color="#9c9c9c" width="33" height="33" /> Logout</p>
                         </Col>
                     </div>         
                 </Navbar>

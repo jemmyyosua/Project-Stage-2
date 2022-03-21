@@ -1,13 +1,28 @@
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import {Nav, Button, Col, Row, Container, Image, Card} from 'react-bootstrap'
 import icon from '../assets/icon.png'
 import book from '../assets/book-1.png'
 import iconProfile from '../assets/iconProfile.jpg'
 import { Icon } from '@iconify/react'
 
+import { UserContext } from "../context/userContext"
+import { useContext} from "react"
 
 
 function Profile(){
+
+    const [state, dispatch] = useContext(UserContext);
+
+    const navigate = useNavigate()
+  
+    const logout = () => {
+      console.log(state);
+      dispatch({
+        type: "LOGOUT",
+      });
+     navigate("/", { replace: true })
+    }
+
     return (
         <>
     <Container fluid>
@@ -47,9 +62,7 @@ function Profile(){
                         <hr className="ms-5" />
 
                         <Col lg="5" className="ms-5"> 
-                            <Link to="/" className="text-decoration-none">        
-                                <p className="mt-4 ms-1 pointer"><Icon className="me-1" icon="ic:sharp-logout" color="#9c9c9c" width="33" height="33" /> Logout</p>
-                            </Link>
+                            <p onClick={logout} className="mt-4 ms-1 pointer"><Icon className="me-1" icon="ic:sharp-logout" color="#9c9c9c" width="33" height="33" /> Logout</p>
                         </Col>
                     </div>         
                 </Nav>
