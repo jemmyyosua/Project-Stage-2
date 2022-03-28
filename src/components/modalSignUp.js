@@ -15,7 +15,7 @@ function SignUp({show, handleClose}) {
   const handleSignInClose = () => setSignIn(false)
   const handleSignInShow = () => setSignIn(true)
 
-  document.title = "Sign Up"
+  document.title = "Sign In"
   let api = API();
 
   const [state, dispatch] = useContext(UserContext);
@@ -91,7 +91,6 @@ function SignUp({show, handleClose}) {
 
 
     return (
-    <>
       <Modal
         show={show}
         backdrop="static"
@@ -137,7 +136,6 @@ function SignUp({show, handleClose}) {
           </Row>
         </Modal.Body>
       </Modal>
-    </>
   )
 }
 

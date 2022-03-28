@@ -1,35 +1,36 @@
-import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import './css/style.css';
+import { Routes, Route, useNavigate} from "react-router-dom"
+import "bootstrap/dist/css/bootstrap.min.css"
+import './css/style.css'
 import LandingPage from './components/landingPage'
-import Home from './userPages/home';
-import Subscribe from './userPages/subscribe';
-import Profile from './userPages/profile';
-import DetailBook from './userPages/detailBook';
-import Transaction from './adminPages/transaction';
-import AddBook from './adminPages/addBook';
+import Home from './userPages/home'
+import Subscribe from './userPages/subscribe'
+import Profile from './userPages/profile'
+import DetailBook from './userPages/detailBook'
+import Transaction from './adminPages/transaction'
+import AddBook from './adminPages/addBook'
+import {ReadBook} from './userPages/readBook'
 
-import { UserContext } from "./context/userContext";
-import { API } from "./api/api";
-import { useContext, useEffect } from "react";
+import { UserContext } from "./context/userContext"
+import { API } from "./api/api"
+import {useState, useContext, useEffect } from "react"
 
-function App(){ 
+export default function App(){ 
     let api = API()
-    const [state, dispatch] = useContext(UserContext);
+    const navigate = useNavigate()
+    const [state, dispatch] = useContext(UserContext)
   
     useEffect(() => {
       // Redirect Auth
       if (!state.isLogin) {
-        <Link to="/" />
+        navigate("/", {replace:true})
       } else {
         if (state.user.role === "admin") {
-            <Link to="/admin-transaction" />
-          // history.push("/complain-admin");
+          navigate("/admin-transaction", {replace:true})
         } else if (state.user.role === "user") {
-            <Link to="/home" />
+          navigate("/home", {replace:true})
         }
       }
-    }, [state]);
+    }, [state])
   
     const checkUser = async () => {
       try {
@@ -38,49 +39,46 @@ function App(){
           headers: {
             Authorization: "Basic " + localStorage.token,
           },
-        };
-        const response = await api.get("/user", config);
+        }
+        const response = await api.get("/check-auth", config)
   
         // If the token incorrect
         if (response.status === "failed") {
           return dispatch({
             type: "AUTH_ERROR",
-          });
+          })
         }
   
         // // Get user data
-        let payload = response.data.user;
+        let payload = response.data.user
         // // Get token from local storage
-        payload.token = localStorage.token;
-  
+        payload.token = localStorage.token
+
         // // Send data to useContext
         dispatch({
           type: "USER_SUCCESS",
           payload,
-        });
+        })
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
-    };
-  
-    useEffect(() => {
-      checkUser();
-    }, []);
-  
+    }
 
+    useEffect(() => {
+      checkUser()
+    }, [])
+    
     return(
-        <Router>
             <Routes>
                 <Route exact path="/" element={<LandingPage />} />
                 <Route exact path="/home" element={<Home />} />
                 <Route exact path="/subscribe" element={<Subscribe />}/>
                 <Route exact path="/profile" element={<Profile />}/>
-                <Route exact path="/detail-book" element={<DetailBook />}/>
+                <Route exact path="/book/:id" element={<DetailBook />}/>
+                <Route exact path="/read-book/:id" element={<ReadBook />} />
                 <Route exact path="/admin-transaction" element={<Transaction />}/>
                 <Route exact path="/add-book" element={<AddBook />}/>
             </Routes>
-        </Router>
         )
 }
 
-export default App;

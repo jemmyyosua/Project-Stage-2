@@ -1,15 +1,14 @@
 import { Link, useNavigate} from "react-router-dom";
 import {Navbar, Col, Image} from 'react-bootstrap'
 import icon from '../assets/icon.png'
-import iconProfile from '../assets/iconProfile.jpg'
+import iconProfile from '../assets/iconProfile.png'
 import { Icon } from '@iconify/react'
-import FullName from "./fullName";
 
 import { UserContext } from "../context/userContext"
 import { useContext} from "react"
 
 
-function Sidebar(){
+function Sidebar({name, userStatus}){
     const [state, dispatch] = useContext(UserContext);
 
     const navigate = useNavigate()
@@ -23,22 +22,21 @@ function Sidebar(){
     }
   
     return (
-                <Navbar defaultActiveKey="/home" className="justify-content-center">
-                    <div className="">
-                        
+                <Navbar>
+                    <div>  
                         <div className="ms-5 mt-3 mb-3">
                         <Link to="/home"><Image src={icon} className="icon2 ms-5 pointer"></Image></Link>
                         </div>
                         <div className="mb-4">
                         <div className="ms-2">
-                            <Col lg="7" className="ms-5 mb-4">  
+                            <Col lg="1" className="ms-5 mb-4">  
                                 <Link to="/profile">
-                                    <Image roundedCircle width="50%" src={iconProfile} className="ms-5 pointer"></Image>  
+                                    <Image roundedCircle width="100px" src={iconProfile} className="ms-5 pointer"></Image>  
                                 </Link>  
                             </Col>
                             </div>
-                            <h5 className="text-center mt-4">Jemmy Yosua Alie</h5>
-                            <p className="p1 text-center mt-3 fw-bolder" style={{color:"red"}}>Not Subscribed Yet</p>
+                            <h5 className="text-center me-4 mt-4">{name}</h5>
+                                {userStatus}
                             <hr className="ms-5" />
                         </div>
 

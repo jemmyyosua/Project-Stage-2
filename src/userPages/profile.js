@@ -1,18 +1,20 @@
 import { Link, useNavigate} from "react-router-dom";
 import {Nav, Button, Col, Row, Container, Image, Card} from 'react-bootstrap'
 import icon from '../assets/icon.png'
-import book from '../assets/book-1.png'
-import iconProfile from '../assets/iconProfile.jpg'
+import iconProfile from '../assets/iconProfile.png'
 import { Icon } from '@iconify/react'
+import dateFormat from "dateformat"
 
 import { UserContext } from "../context/userContext"
-import { useContext} from "react"
+import { useContext, useEffect } from "react"
+import {API} from '../api/api'
+import {useQuery} from 'react-query'
 
 
 function Profile(){
 
+    document.title = "Profile"
     const [state, dispatch] = useContext(UserContext);
-
     const navigate = useNavigate()
   
     const logout = () => {
@@ -22,6 +24,31 @@ function Profile(){
       });
      navigate("/", { replace: true })
     }
+
+    let api = API()
+    let { data: user } = useQuery("userCache", async () => {
+        const config = {
+        method: "GET",
+        headers: {
+            Authorization: "Basic " + localStorage.token,
+        },
+        }
+        const response = await api.get("/user", config)
+        return response.data
+    })
+
+
+    let { data: userBook, refetch: userBookRefetch } = useQuery("userBookCache", async () => {
+        const config = {
+          method: "GET",
+          headers: {
+            Authorization: "Basic " + localStorage.token,
+          },
+        };
+        const response = await api.get("/list-book", config);
+        return response.data;
+      })
+      
 
     return (
         <>
@@ -37,12 +64,20 @@ function Profile(){
                             <div className="ms-2">
                                 <Col lg="7" className="ms-5 mb-3">  
                                     <Link to="/profile">
-                                        <Image roundedCircle src={iconProfile} className="ms-5 iconProfile pointer"></Image>  
+                                        <Image roundedCircle width="100px" src={iconProfile} className="ms-5 iconProfile pointer"></Image>  
                                     </Link>  
                                 </Col>
                             </div>
-                            <h5 className="text-center">Jemmy Yosua Alie</h5>
-                            <p className="p1 text-center mt-3 fw-bolder" style={{color:"red"}}>Not Subscribed Yet</p>
+                            <h5 className="text-center me-4">{user?.fullName}</h5>
+                            {user?.transaction[0].userStatus !== "Active" ? (
+                                    <div> 
+                                        <p className="p1 text-center me-4 mt-3 fw-bolder" style={{color:"red"}}>Not Subscribed Yet</p>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <p className="p1 text-center me-4 mt-3 fw-bolder" style={{color:"#00db25"}}>Subscribed</p>
+                                    </div>
+                            )}
                             <hr className="ms-5" />
                         </div>
 
@@ -80,7 +115,7 @@ function Profile(){
                                     <Icon className="mt-2" icon="entypo:mail" color="#9c9c9c" width="26" height="26" />  
                                     </Col>  
                                     <Col lg="11">    
-                                    <p style={{ fontSize: '10pt'}} className="ms-2 fw-bolder">jemmyalie9@gmail.com <br /> <p style={{ fontSize: '10pt'}} className="fw-normal">Email</p></p>   
+                                    <p style={{ fontSize: '10pt'}} className="ms-2 fw-bolder">{user?.email} <br /> <p style={{ fontSize: '10pt'}} className="fw-normal">Email</p></p>   
                                     </Col>
                                 </Row> 
                                 <Row >
@@ -88,7 +123,7 @@ function Profile(){
                                     <Icon className="mt-2" icon="ph:gender-intersex-bold" color="#9c9c9c" width="28" height="28" />  
                                     </Col>  
                                     <Col lg="11">    
-                                    <p style={{ fontSize: '10pt'}} className="ms-2 fw-bolder">Male <br /> <p style={{ fontSize: '10pt'}} className="fw-normal">Gender</p></p>   
+                                    <p style={{ fontSize: '10pt'}} className="ms-2 fw-bolder">- <br /> <p style={{ fontSize: '10pt'}} className="fw-normal">Gender</p></p>   
                                     </Col>
                                 </Row> 
                                 <Row >
@@ -96,7 +131,7 @@ function Profile(){
                                     <Icon className="mt-2" icon="carbon:phone-filled" color="#9c9c9c" width="25" height="25" />  
                                     </Col>  
                                     <Col lg="11">    
-                                    <p style={{ fontSize: '10pt'}} className="ms-2 fw-bolder">0896-3657-9383 <br /> <p style={{ fontSize: '10pt'}} className="fw-normal">Mobile phone</p></p>   
+                                    <p style={{ fontSize: '10pt'}} className="ms-2 fw-bolder">- <br /> <p style={{ fontSize: '10pt'}} className="fw-normal">Mobile phone</p></p>   
                                     </Col>
                                 </Row> 
                                 <Row  className="mb-2">
@@ -104,7 +139,7 @@ function Profile(){
                                     <Icon className="mt-2" icon="carbon:location-filled" color="#9c9c9c" width="25" height="25" /> 
                                     </Col>  
                                     <Col lg="11">    
-                                    <p style={{ fontSize: '10pt'}} className="ms-2 fw-bolder">Pinus Elok Blok B3 <br /> <p style={{ fontSize: '10pt'}} className="fw-normal">Address</p></p>   
+                                    <p style={{ fontSize: '10pt'}} className="ms-2 fw-bolder">- <br /> <p style={{ fontSize: '10pt'}} className="fw-normal">Address</p></p>   
                                     </Col>
                                 </Row> 
                                 
@@ -123,22 +158,32 @@ function Profile(){
 
             <div className="mt-4">
                 <h3 className="fw-bold">My List Book</h3>
-                <div className="d-flex flex-wrap">     
-                    <Card border="light" className="me-5 mt-4 text-center pointer" style={{ width: '7.3rem' }}>
-                        <Link to="/detail-book"><Image src={book} width="100%" height="180vh"></Image></Link>   
-                            <div className="mt-1">
-                                <Icon icon="eva:star-fill" color="yellow" width="20" height="20" />
-                                <Icon icon="eva:star-fill" color="yellow" width="20" height="20" />
-                                <Icon icon="eva:star-fill" color="yellow" width="20" height="20" />
-                                <Icon icon="eva:star-fill" color="yellow" width="20" height="20" />
-                                </div>
-                            <h6 className="fw-bold">Serangkai</h6>
-                            <p className="p1">Valerie Patkar</p>  
-                            <p className="p1 fw-bold" style={{marginBlockStart:"-10px"}}>1980</p>             
-                    </Card>  
-                </div>
+                {user?.transaction[0].userStatus !== "Active" ? (
+                    <div>
+                         <h4>Subscribe to read books</h4>
+                    </div>
+                    ) : (
+                          
+                    <div className="d-flex flex-wrap"> 
+                    {userBook?.map((item, index) => (
+                    <Card border="white" className="me-5 mt-4 text-center pointer" style={{ width: '7.3rem' }}>
+                     <Link to={'/book/' + item.book.id  }className="text-decoration-none text-reset" key={index}>
+                         <Image src={item.book.cover} fluid rounded style={{minHeight: "180px"}} alt={item.book.cover}/>
+                             {/* <div className="mt-2 mb-1">
+                                 <Icon icon="eva:star-fill" color="yellow" width="20" height="20" />
+                                 <Icon icon="eva:star-fill" color="yellow" width="20" height="20" />
+                                 <Icon icon="eva:star-fill" color="yellow" width="20" height="20" />
+                                 <Icon icon="eva:star-fill" color="yellow" width="20" height="20" />
+                                 </div> */}
+                         <h6 className="fw-bold mt-2">{item.book.title}</h6>
+                         <p className="p1">{item.book.author}</p>  
+                         <p className="p1 fw-bold" style={{marginBlockStart:"-10px"}}>{dateFormat(item.publicationDate, "yyyy")}</p> 
+                     </Link> 
+                    </Card> 
+                      ))} 
+                    </div> 
+                    )} 
             </div>
-
         </Col>
      </Row>
     </Container>

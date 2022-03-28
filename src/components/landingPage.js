@@ -1,11 +1,17 @@
-import {React, useState, useEffect} from 'react'
+import {React, useState, useContext} from 'react'
 import icon from '../assets/icon.png'
 import vector from '../assets/vector.png'
 import {Row, Col, Button } from 'react-bootstrap'
 import SignIn from './modalSignIn'
 import SignUp from './modalSignUp'
 
+import {UserContext} from '../context/userContext'
+
 function LandingPage(){
+    const [state] = useContext(UserContext)
+
+    document.title = "Wow-App"
+
     const [signUp, setSignUp] = useState(false)
     const handleSignUpClose = () => setSignUp(false)
     const handleSignUpShow = () => setSignUp(true)
@@ -13,6 +19,7 @@ function LandingPage(){
     const [signIn, setSignIn] = useState(false)
     const handleSignInClose = () => setSignIn(false)
     const handleSignInShow = () => setSignIn(true)
+    
 
     return (
     <>

@@ -14,7 +14,7 @@ export default function SignIn ({show, handleClose}) {
   const handleSignUpClose = () => setSignUp(false)
   const handleSignUpShow = () => setSignUp(true)
 
-  document.title = "Sign In"
+  document.title = "Sign Up"
   let api = API();
   const navigate = useNavigate()
 
@@ -66,9 +66,9 @@ export default function SignIn ({show, handleClose}) {
 
         // Status check
         if (response.data.role === "admin"){
-          navigate("/admin-transaction", { replace: true })
+          navigate("/admin-transaction")
         } else {
-          navigate("/home", { replace: true })
+          navigate("/home")
         }
 
         const alert = (
@@ -97,7 +97,6 @@ export default function SignIn ({show, handleClose}) {
   })
     
     return (
-    <>
       <Modal
         show={show}
         backdrop="static"
@@ -105,9 +104,9 @@ export default function SignIn ({show, handleClose}) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Body className="py-4">
+        <Modal.Body className="my-3">
           <Row className="justify-content-end">
-            <CloseButton onClick={handleClose} className="mb-3 me-3"/>
+            <CloseButton onClick={handleClose} className="mb-5 me-3"/>
           </Row>
     
           <Row className="mb-5 justify-content-center">
@@ -129,7 +128,7 @@ export default function SignIn ({show, handleClose}) {
                   </div>
                 <center>
                 <p className="mb-4">Don't have an account ? Klik 
-                <Link to="" className="text-reset text-decoration-none fw-bold ms-1"  onClick={handleSignUpShow}>
+                <Link to="" className="text-reset text-decoration-none fw-bold ms-1" onClick={handleSignUpShow}>
                     Here
                 </Link>
                 <SignUp show={signUp} handleClose={handleSignUpClose}/></p>
@@ -139,7 +138,6 @@ export default function SignIn ({show, handleClose}) {
           </Row>
         </Modal.Body>
       </Modal>
-    </>
   )
 }
 

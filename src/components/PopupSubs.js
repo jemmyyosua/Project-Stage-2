@@ -1,20 +1,9 @@
 import {useState} from 'react'
 import {Button,Modal} from 'react-bootstrap'
 
-
-
-export default function Popup() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+export default function Popup({show, handleClose}) {
   return (
     <>
-      <Button onClick={handleShow} className="mt-2" variant="danger" size="md">
-        Send
-      </Button>
-    
      <Modal
         className="ms-5"
         show={show}

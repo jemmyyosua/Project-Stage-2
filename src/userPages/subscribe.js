@@ -1,29 +1,108 @@
-import { Link, useNavigate} from "react-router-dom";
-import {Nav, Form, Button, Col, Row, Container, Image} from 'react-bootstrap'
+import { Link, useNavigate, useParams} from "react-router-dom"
+import {Nav, Form, Col, Row, Container, Image, Button, Al} from 'react-bootstrap'
 import icon from '../assets/icon.png'
-import iconProfile from '../assets/iconProfile.jpg'
+import iconProfile from '../assets/iconProfile.png'
 import wow from '../assets/wow.png'
 import file from '../assets/file.png'
 import { Icon } from '@iconify/react'
-import Popup from "../components/PopupSubs";
+import Popup from "../components/PopupSubs"
 
 import { UserContext } from "../context/userContext"
-import { useContext} from "react"
+import { useContext, useState} from "react"
+import {API} from '../api/api'
+import {useQuery, useMutation} from 'react-query'
 
 
 function Subscribe(){
 
-    const [state, dispatch] = useContext(UserContext);
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false)
+  
+    document.title = "Subscribe"
+    const [state, dispatch] = useContext(UserContext)
 
     const navigate = useNavigate()
 
     const logout = () => {
-        console.log(state);
+        console.log(state)
         dispatch({
         type: "LOGOUT",
-        });
+        })
         navigate("/", { replace: true })
     }
+
+    let api = API()
+    let { data: user } = useQuery("userCache", async () => {
+        const config = {
+        method: "GET",
+        headers: {
+            Authorization: "Basic " + localStorage.token,
+        },
+        }
+        const response = await api.get("/user", config)
+        return response.data
+    })
+
+
+    const [preview, setPreview] = useState(null) //For image preview
+    const [form, setForm] = useState({
+        transferProof : "",
+        userStatus : "Not Active",
+        paymentStatus : "Pending",
+        remainingActive : 0
+    }) 
+
+    //Store product data
+    // Handle change data on form
+    const handleChange = (e) => {
+        setForm({
+        ...form,
+        [e.target.name]: e.target.type === "file" ? e.target.files : e.target.value,
+        })
+
+        // Create image url for preview
+        if (e.target.type === "file") {
+        let url = URL.createObjectURL(e.target.files[0])
+        setPreview(url)
+        }
+    }
+
+    const id = user?.transaction[0].id
+
+    const handleSubmit = useMutation(async (e) => {
+        try {
+        e.preventDefault()
+
+        // Store data with FormData as object
+        let formData =  new FormData()
+        formData.set("transferProof", form?.transferProof[0], form?.transferProof[0]?.name)
+        formData.set("userStatus", form.userStatus)
+        formData.set("paymentStatus", form.paymentStatus)
+        formData.set("remainingActive", form.remainingActive)
+
+
+        // Configuration
+        const config = {
+            method: "PATCH",
+            headers: {
+            Authorization: "Basic " + localStorage.token,
+            },
+            body: formData,
+        }
+
+        // Insert product data
+        const response = await api.patch("/update-transaction/" + id , config)
+        console.log(response)
+        console.log(formData)
+
+        if(response.status === "success") {
+            setShow(true)        
+        }
+        
+        } catch (error) {
+        console.log(error)
+        }
+    })
 
     return (
         <>
@@ -39,12 +118,20 @@ function Subscribe(){
                             <div className="ms-2">
                                     <Col lg="7" className="ms-5 mb-3">  
                                         <Link to="/profile">
-                                            <Image roundedCircle src={iconProfile} className="ms-5 iconProfile pointer"></Image>  
+                                            <Image roundedCircle width="100px" src={iconProfile} className="ms-5 iconProfile pointer"></Image>  
                                         </Link>  
                                     </Col>
                                 </div>
-                            <h5 className="text-center">Jemmy Yosua Alie</h5>
-                            <p className="p1 text-center mt-3 fw-bolder" style={{color:"red"}}>Not Subscribed Yet</p>
+                            <h5 className="text-center me-4">{user?.fullName}</h5>
+                            {user?.transaction[0].userStatus !== "Active" ? (
+                                    <div>
+                                         <p className="p1 text-center me-4 mt-3 fw-bolder" style={{color:"red"}}>Not Subscribed Yet</p>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <p className="p1 text-center me-4 mt-3 fw-bolder" style={{color:"#00db25"}}>Subscribed</p>
+                                    </div>
+                            )}
                             <hr className="ms-5" />
                         </div>
 
@@ -76,23 +163,38 @@ function Subscribe(){
                     <p className="">Pay now and access all the latest books from <Image src={wow}></Image></p>
                     <h6 className="fw-bold"><Image src={wow}></Image> : 0981312323</h6>
                     <Col lg="4">
-                    <Form>
-                    ` <Form.Group className="mt-2 mb-4" controlId="formBasicEmail">
+                    <Form onSubmit={(e) => handleSubmit.mutate(e)}>
+                    ` <Form.Group className="mt-2 mb-3" controlId="formBasicEmail">
                         <Form.Control className="text-center py-1" type="text" placeholder="Input your account number" required/>
                         </Form.Group>
 
-                        <Form.Group className="mt-4 mb-4" controlId="formBasicEmail">
+                        <Form.Group className="mt-2 mb-4" controlId="formBasicEmail">
                             <div class="input-blog-image-group">
                                 <label for="input-blog-image">
                                 <p>Attach proof of transfer</p>
                                 <Image src={file} className=""></Image>
                                 </label>
-                                <input type="file" id="input-blog-image" hidden />
+                                <input type="file" accept=".jpg, .jpeg, .png" id="input-blog-image" onChange={handleChange} name="transferProof" hidden />
                             </div>
                         </Form.Group>
+                        {preview && (                    
+                                <Image
+                                className=""
+                                src={preview}
+                                style={{
+                                    maxWidth: "290px",
+                                    maxHeight: "290px",
+                                    objectFit: "cover",
+                                }}
+                                alt="preview"
+                                />
+                            )}
 
                         <div className="d-grid mt-4 mb-3">
-                            <Popup/>
+                        <Button type="submit" className="mt-2" variant="danger" size="md">
+                            Send
+                        </Button>
+                        <Popup show={show} handleClose={handleClose} />
                         </div>
                     </Form>
                     </Col>
