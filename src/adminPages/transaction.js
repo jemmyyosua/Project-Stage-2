@@ -2,7 +2,6 @@ import {Row,Container, Table, Pagination, Col} from 'react-bootstrap'
 import Drop from '../components/dropdownAction'
 import NavbarAdmin from '../components/navbar-admin'
 
-import dateFormat from "dateformat"
 import {API} from '../api/api'
 import {useQuery} from 'react-query'
 
@@ -22,10 +21,6 @@ function Transaction(){
         const response = await api.get("/transactions", config)
         return response.data
     })
-
-    // const d = dateFormat(new Date(), "dd mm yyyy")
-    // let ms = d.valueOf()
-    // console.log(ms)
 
     return (
         <>         
@@ -80,7 +75,7 @@ function Transaction(){
                                     <>
                                     </>
                                 )}</td>
-                                <td key={index}>
+                                <td key={item.id}>
                                     <Drop index={item.id}/>
                                 </td>
                             </tr>

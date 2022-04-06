@@ -9,40 +9,16 @@ function Drop(props){
 
   // const [idUpdate, setIdUpdate] = useState(null)
   // const[idCancel , setIdCancel] = useState(null)
-  const [form1, setForm1] = useState({
-    transferProof: "",
-    remainingActive: "",
-    userStatus: "",
-    paymentStatus: "",
-  })
 
-  const [form2, setForm2] = useState({
-    transferProof: "",
-    remainingActive: "",
-    userStatus: "",
-    paymentStatus: "",
-  })
   
-  useQuery("transactionCache", async () => {
+  let { data: transaction } =useQuery("transactionCache", async () => {
     const config = {
       headers: {
         Authorization: "Basic " + localStorage.token,
       },
     }
     const response = await api.get(`/transaction/${props.index}`, config)
-    setForm1({
-      remainingActive: 30,
-      userStatus: "Active",
-      paymentStatus: "Approved",
-      transferProof: response.data.transferProof,
-    })
-
-    setForm2({
-      remainingActive: 0,
-      userStatus: "Not Active",
-      paymentStatus: "Cancel",
-      transferProof: response.data.transferProof,
-    })
+    return response.data
   })
 
   const update =  useMutation(async (e) => {
@@ -50,10 +26,10 @@ function Drop(props){
       e.preventDefault()
         // Store data with FormData as object
         let formData =  new FormData()
-        formData.set("transferProof", form1.transferProof)
-        formData.set("remainingActive", form1.remainingActive)
-        formData.set("userStatus", form1.userStatus)
-        formData.set("paymentStatus", form1.paymentStatus)
+        formData.set("transferProof", transaction.transferProof)
+        formData.set("remainingActive", 30)
+        formData.set("userStatus", "Active")
+        formData.set("paymentStatus", "Approved")
 
         // Configuration
         const config = {
@@ -78,10 +54,10 @@ function Drop(props){
       e.preventDefault()
         // Store data with FormData as object
         let formData =  new FormData()
-        formData.set("transferProof", form2.transferProof)
-        formData.set("remainingActive", form2.remainingActive)
-        formData.set("userStatus", form2.userStatus)
-        formData.set("paymentStatus", form2.paymentStatus)
+        formData.set("transferProof", transaction.transferProof)
+        formData.set("remainingActive", 0)
+        formData.set("userStatus", "Not Active")
+        formData.set("paymentStatus", "Cancel")
 
         // Configuration
         const config = {
@@ -99,17 +75,23 @@ function Drop(props){
     }
   })
 
-  // const handleUpdate = 
-  // const handleCancel = 
+  
+  const handleCancel = (id) => cancel.mutate(id)
+  const handleUpdate = (id) => update.mutate(id)
 
-  const id = props.index
+  useEffect(() =>{
+    const handleUpdate = (id) => update.mutate(id)
+    const handleCancel = (id) => cancel.mutate(id)
+    handleUpdate()
+    handleCancel()
+  },[])
 
     return (
         <Dropdown as={ButtonGroup} key={props.id}> 
         <Dropdown.Toggle style={{color : 'black'}} align="end" split variant="outline-light"/>
       
         <Dropdown.Menu>
-          <Dropdown.Item className="mb-2" style={{color : 'green', fontWeight: 'bold'}} onClick={(id) => update.mutate(id)}>
+          <Dropdown.Item className="mb-2" style={{color : 'green', fontWeight: 'bold'}} onClick={handleUpdate}>
                Approved 
           </Dropdown.Item>
 
@@ -117,7 +99,7 @@ function Drop(props){
               <hr/> 
             </Row>
         
-          <Dropdown.Item  style={{color : 'red', fontWeight: 'bold'}} onClick={(e) => cancel.mutate(e)}>
+          <Dropdown.Item  style={{color : 'red', fontWeight: 'bold'}} onClick={handleCancel}>
               Cancel 
           </Dropdown.Item>
         </Dropdown.Menu>

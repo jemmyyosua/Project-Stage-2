@@ -75,7 +75,7 @@ function DetailBook(){
    
     const checkList = async () => {
       await userBook.find(element => {
-        if(element.id == id){
+        if(element.idBook == id){
           setButton(false)
         }
       })
