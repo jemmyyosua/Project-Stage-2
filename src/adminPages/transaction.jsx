@@ -2,6 +2,7 @@ import {Row,Container, Table, Pagination, Col} from 'react-bootstrap'
 import Drop from '../components/dropdownAction'
 import NavbarAdmin from '../components/navbar-admin'
 
+import date from 'date-and-time'
 import {API} from '../api/api'
 import {useQuery} from 'react-query'
 
@@ -21,6 +22,20 @@ function Transaction(){
         const response = await api.get("/transactions", config)
         return response.data
     })
+
+   function duration(update){
+        const end = new Date(update)
+        const next_month = date.addMonths(end, 1)
+        const endDate = date.addDays(next_month, 1)
+        const now = new Date()
+
+        const distance = endDate- now
+
+        const days = Math.floor(distance / ( 1000 * 60 * 60 * 24 ))
+        return days
+    }
+
+    
 
     return (
         <>         
@@ -47,7 +62,17 @@ function Transaction(){
                                 <td><p className="fw-bold">{index + 1}</p></td>
                                 <td><p className="fw-bold">{item.user.fullName}</p></td>
                                 <td><p className="fw-bold">{item.transferProof}</p></td>
-                                <td><p className="fw-bold">{item.remainingActive} / Hari</p></td>
+                                <td>
+                                {item.userStatus !== "Active" ? (
+                                    <p className="fw-bold" >
+                                    0 / Hari
+                                    </p>
+                                ) : ( 
+                                    <p className="fw-bold" >
+                                    {duration(item.updatedAt)} / Hari
+                                    </p>
+                                   )}
+                                </td>
                                 <td>
                                 {item.userStatus !== "Active" ? (
                                     <>
