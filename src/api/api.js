@@ -1,5 +1,7 @@
 export const API = () => {
-    const baseUrl = "http://localhost:4000/wow-app";
+    const baseUrl = process.env.REACT_APP_SERVER_URL ||
+    'https://wow-app01.herokuapp.com/wow-app' ||
+    'https://localhost:5000/wow-app';
   
     const executeAPI = async (endpoint, config) => {
       const response = await fetch(baseUrl + endpoint, config);
