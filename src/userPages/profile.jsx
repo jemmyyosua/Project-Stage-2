@@ -22,7 +22,7 @@ function Profile(){
       dispatch({
         type: "LOGOUT",
       });
-     navigate("/", { replace: true })
+     navigate("/landing", { replace: true })
     }
 
     let api = API()
@@ -55,10 +55,10 @@ function Profile(){
     <Container fluid>
     <Row>
     <Col lg="3">
-                <Nav defaultActiveKey="/home" className="nav justify-content-center">
+                <Nav defaultActiveKey="/" className="nav justify-content-center">
                     <div className="">
                         <div className="ms-5 mt-3 mb-3">
-                        <Link to="/home"><Image src={icon} className="icon2 ms-5 pointer"></Image></Link>
+                        <Link to="/"><Image src={icon} className="icon2 ms-5 pointer"></Image></Link>
                         </div>
                         <div className="mb-4">
                             <div className="ms-2">
