@@ -28,7 +28,7 @@ function Subscribe(){
         dispatch({
         type: "LOGOUT",
         })
-        navigate("/", { replace: true })
+        navigate("/landing", { replace: true })
     }
 
     let api = API()
@@ -109,10 +109,10 @@ function Subscribe(){
     <Container fluid>
     <Row>
     <Col lg="3">
-                <Nav defaultActiveKey="/home" className="nav justify-content-center">
+                <Nav defaultActiveKey="/" className="nav justify-content-center">
                     <div className="">
                         <div className="ms-5 mt-3 mb-3">
-                        <Link to="/home"><Image src={icon} className="icon2 ms-5 pointer"></Image></Link>
+                        <Link to="/"><Image src={icon} className="icon2 ms-5 pointer"></Image></Link>
                         </div>
                         <div className="mb-4">
                             <div className="ms-2">
@@ -164,7 +164,7 @@ function Subscribe(){
                     <h6 className="fw-bold"><Image src={wow}></Image> : 0981312323</h6>
                     <Col lg="4">
                     <Form onSubmit={(e) => handleSubmit.mutate(e)}>
-                    ` <Form.Group className="mt-2 mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mt-2 mb-3" controlId="formBasicEmail">
                         <Form.Control className="text-center py-1" type="text" placeholder="Input your account number" required/>
                         </Form.Group>
 
