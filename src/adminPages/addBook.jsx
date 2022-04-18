@@ -23,8 +23,7 @@ export default function AddBook(){
     pages	: "",
     author: "",
     publicationDate: "",
-    ISBN: "",
-    bookFile: ""
+    ISBN: ""
   }) 
 
   //Store product data
@@ -56,7 +55,6 @@ export default function AddBook(){
       formData.set("ISBN", form.ISBN)
       formData.set("about", form.about)
       formData.set("cover", form?.cover[0], form?.cover[0]?.name)
-      formData.set("bookFile", form?.bookFile[0], form?.bookFile[0]?.name)
 
       // Configuration
       const config = {
