@@ -84,7 +84,7 @@ hr{
   }
 
 .btn-sign{
-    padding : 10%;
+    padding : 0 10%;
 }
 
   @media screen and (max-width: 900px) {
