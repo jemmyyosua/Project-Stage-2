@@ -96,9 +96,12 @@ hr{
   }
 
 
+
   @media screen and (max-width: 450px) {
-   .btn-sign{
-       font-size : 10pt;
-       padding : 0 -10px
+      .btn-sign{
+        font-size: 10pt;
+        padding: 0 -20px;
+        margin-left : -10px;
       }
   }
+
