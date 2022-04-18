@@ -83,6 +83,10 @@ hr{
     justify-content: space-between;
   }
 
+.btn-sign{
+    padding : 10%;
+}
+
   @media screen and (max-width: 900px) {
     .img1{
       width: 0% !important;
@@ -100,7 +104,6 @@ hr{
   @media screen and (max-width: 450px) {
       .btn-sign{
         font-size: 10pt;
-        padding: 0 -10% !important;
         margin-right: -10%;
       }
   }
