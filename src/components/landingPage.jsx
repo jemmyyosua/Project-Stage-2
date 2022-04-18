@@ -31,12 +31,12 @@ function LandingPage(){
                     <br/> and latest books - The best book rental service 
                     <br /> provider in Indonesia</p>
                     <br />
-                        <Button style={{fontOpticalSizing : "auto"}} className="px-5 ms-3 me-5 btn-sign" variant="danger" onClick={handleSignUpShow}>
+                        <Button style={{fontOpticalSizing : "auto"}} className="ms-3 me-5 btn-sign" variant="danger" onClick={handleSignUpShow}>
                             Sign Up
                         </Button>
                         <SignUp show={signUp} handleClose={handleSignUpClose}/>
     
-                        <Button className="px-5 ms-3 btn-sign" variant="secondary" onClick={handleSignInShow}>
+                        <Button className="ms-3 btn-sign" variant="secondary" onClick={handleSignInShow}>
                             Sign In
                         </Button>
                         <SignIn show={signIn} handleClose={handleSignInClose}/> 
