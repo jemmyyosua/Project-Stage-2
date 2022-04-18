@@ -18,7 +18,7 @@ function DropAdmin(){
       dispatch({
         type: "LOGOUT",
       });
-     navigate("/", { replace: true })
+     navigate("/landing", { replace: true })
     }
 
 
