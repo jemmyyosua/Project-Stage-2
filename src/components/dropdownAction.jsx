@@ -76,12 +76,12 @@ function Drop(props){
   })
 
   
-  const handleCancel = (id) => cancel.mutate(id)
-  const handleUpdate = (id) => update.mutate(id)
+  const handleCancel = (e) => cancel.mutate(e)
+  const handleUpdate = (e) => update.mutate(e)
 
   useEffect(() =>{
-    const handleUpdate = (id) => update.mutate(id)
-    const handleCancel = (id) => cancel.mutate(id)
+    const handleUpdate = (e) => update.mutate(e)
+    const handleCancel = (e) => cancel.mutate(e)
     handleUpdate()
     handleCancel()
   },[])
