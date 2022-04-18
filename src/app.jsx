@@ -70,14 +70,14 @@ export default function App(){
     
     return(
             <Routes>
-                <Route exact path="/" element={<LandingPage />} />
-                <Route exact path="/home" element={<Home />} />
-                <Route exact path="/subscribe" element={<Subscribe />}/>
-                <Route exact path="/profile" element={<Profile />}/>
-                <Route exact path="/book/:id" element={<DetailBook />}/>
-                <Route exact path="/read-book/:id" element={<ReadBook />} />
-                <Route exact path="/admin-transaction" element={<Transaction />}/>
-                <Route exact path="/add-book" element={<AddBook />}/>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/subscribe" element={<Subscribe />}/>
+                <Route path="/profile" element={<Profile />}/>
+                <Route path="/book/:id" element={<DetailBook />}/>
+                <Route path="/read-book/:id" element={<ReadBook />} />
+                <Route path="/admin-transaction" element={<Transaction />}/>
+                <Route path="/add-book" element={<AddBook />}/>
             </Routes>
         )
 }
