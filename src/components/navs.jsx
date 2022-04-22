@@ -25,7 +25,7 @@ function Sidebar({name, userStatus}){
                 <Navbar>
                     <div>  
                         <div className="ms-5 mt-3 mb-3">
-                        <Link to="/"><Image src={icon} className="icon2 ms-5 pointer"></Image></Link>
+                        <Link to="/home"><Image src={icon} className="icon2 ms-5 pointer"></Image></Link>
                         </div>
                         <div className="mb-4">
                         <div className="ms-2">
