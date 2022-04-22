@@ -18,6 +18,7 @@ export default function AddBook(){
   const [preview, setPreview] = useState(null) //For image preview
   const [form, setForm] = useState({
     cover: "",
+    bookFile: "",
     title: "",
     about: "",
     pages	: "",
@@ -55,6 +56,7 @@ export default function AddBook(){
       formData.set("ISBN", form.ISBN)
       formData.set("about", form.about)
       formData.set("cover", form?.cover[0], form?.cover[0]?.name)
+      formData.set("bookFile", form?.bookFile[0], form?.bookFile[0]?.name)
 
       // Configuration
       const config = {
