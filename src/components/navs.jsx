@@ -18,7 +18,7 @@ function Sidebar({name, userStatus}){
       dispatch({
         type: "LOGOUT",
       });
-     navigate("/landing", { replace: true })
+     navigate("/", { replace: true })
     }
   
     return (
