@@ -22,12 +22,12 @@ export default function App(){
     useEffect(() => {
       // Redirect Auth
       if (!state.isLogin) {
-        navigate("/landing", {replace:true})
+        navigate("/", {replace:true})
       } else {
         if (state.user.role === "admin") {
           navigate("/admin-transaction", {replace:true})
         } else if (state.user.role === "user") {
-          navigate("/", {replace:true})
+          navigate("/home", {replace:true})
         }
       }
     }, [state])
@@ -70,8 +70,8 @@ export default function App(){
     
     return(
             <Routes>
-                <Route path="/landing" element={<LandingPage />} />
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/subscribe" element={<Subscribe />}/>
                 <Route path="/profile" element={<Profile />}/>
                 <Route path="/book/:id" element={<DetailBook />}/>
